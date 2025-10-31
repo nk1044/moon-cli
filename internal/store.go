@@ -4,9 +4,28 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
+	"runtime"
 )
 
-const storePath = "data/store.json"
+func getStorePath() string {
+	var baseDir string
+
+	switch runtime.GOOS {
+	case "windows":
+		baseDir = os.Getenv("APPDATA")
+		if baseDir == "" {
+			baseDir = filepath.Join(os.Getenv("USERPROFILE"), "AppData", "Roaming")
+		}
+		baseDir = filepath.Join(baseDir, "Moon")
+	default:
+		home, _ := os.UserHomeDir()
+		baseDir = filepath.Join(home, ".moon")
+	}
+
+	os.MkdirAll(baseDir, 0755)
+	return filepath.Join(baseDir, "store.json")
+}
 
 type AliasData struct {
 	Commands []string `json:"commands"`
@@ -20,10 +39,8 @@ func LoadStore() (Store, error) {
 	var s Store
 	s.Aliases = make(map[string]AliasData)
 
-	// Ensure directory exists
-	os.MkdirAll("data", 0755)
+	storePath := getStorePath()
 
-	// If file doesn't exist → create empty
 	if _, err := os.Stat(storePath); os.IsNotExist(err) {
 		if err := SaveStore(s); err != nil {
 			return s, fmt.Errorf("failed to create new store: %v", err)
@@ -50,6 +67,8 @@ func LoadStore() (Store, error) {
 }
 
 func SaveStore(s Store) error {
+	storePath := getStorePath()
+
 	data, err := json.MarshalIndent(s, "", "  ")
 	if err != nil {
 		return fmt.Errorf("failed to marshal store: %v", err)
