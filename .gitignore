@@ -1,0 +1,10 @@
+*.json
+data/store.json
+*.log
+*.tmp
+.DS_Store
+.vscode/
+
+moon
+*.idea/
+*.sum

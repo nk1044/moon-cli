@@ -77,11 +77,13 @@ func PrintMoonMessage(msgType MessageType, message string) string {
 	return prefix + message + reset
 }
 
-func SelectCommand(cmds []string) (string, error) {
+func SelectCommand(cmds []string, label string) (string, error) {
 	prompt := promptui.Select{
-		Label: "Select a command to paste",
+		// Label: "Select a command to paste",
+		Label: label,
 		Items: cmds,
 	}
 	_, result, err := prompt.Run()
 	return result, err
 }
+

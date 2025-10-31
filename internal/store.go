@@ -54,7 +54,5 @@ func SaveStore(s Store) error {
 	if err != nil {
 		return fmt.Errorf("failed to marshal store: %v", err)
 	}
-	msg := PrintMoonMessage(Success, "Saved Successfully!")
-	fmt.Println(msg)
 	return os.WriteFile(storePath, data, 0644)
 }
