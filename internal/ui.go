@@ -1,6 +1,9 @@
 package internal
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/manifoldco/promptui"
+)
 
 const (
 	lavender = "\x1b[38;5;147m"
@@ -72,4 +75,13 @@ func PrintMoonMessage(msgType MessageType, message string) string {
 		prefix = bold // Just bold, as in your original function
 	}
 	return prefix + message + reset
+}
+
+func SelectCommand(cmds []string) (string, error) {
+	prompt := promptui.Select{
+		Label: "Select a command to paste",
+		Items: cmds,
+	}
+	_, result, err := prompt.Run()
+	return result, err
 }
