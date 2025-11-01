@@ -1,4 +1,4 @@
-# 🌙 Moon CLI — Lightweight Alias & Command Manager
+# Moon CLI — Lightweight Alias & Command Manager
 
 <span style="color:lavender;">
 
