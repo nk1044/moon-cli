@@ -71,7 +71,7 @@ Tips:
   - When you run "moon <alias>", it shows a list to copy/paste quickly.
   - Aliases make repetitive terminal tasks faster and consistent.
 
-For more info, visit: https://github.com/neerajkumar/moon-cli
+For more info, visit: https://github.com/nk1044/moon-cli
 `))
 
 	case "-v", "--version", "version":
